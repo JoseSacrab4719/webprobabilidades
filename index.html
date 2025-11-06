@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Probabilidades</title>
+  <link rel="stylesheet" href="stile.css">
+  <!-- ✅ Agregar Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Calculadora de Probabilidades</h1>
+    <nav>
+      <button onclick="mostrarSeccion('simple')">Simple</button>
+      <button onclick="mostrarSeccion('condicional')">Condicional</button>
+      <button onclick="mostrarSeccion('compuesta')">Compuesta</button>
+      <button onclick="mostrarSeccion('bayes')">Bayes</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Probabilidad Simple -->
+    <section id="simple" class="activo">
+      <h2>Probabilidad Simple</h2>
+      <p><strong>Fórmula:</strong> P(A) = Casos favorables / Casos totales</p>
+
+      <form onsubmit="calcularSimple(event)">
+        <label>Casos favorables:</label>
+        <input type="number" id="favorables" min="0" required>
+        <label>Casos totales:</label>
+        <input type="number" id="totales" min="1" required>
+        <button type="submit">Calcular</button>
+      </form>
+
+      <div id="resultado-simple"></div>
+      <canvas id="graficoSimple"></canvas> <!-- 🎯 Aquí va el gráfico -->
+    </section>
+
+    <!-- Condicional -->
+    <section id="condicional">
+      <h2>Probabilidad Condicional</h2>
+      <p><strong>Fórmula:</strong> P(A|B) = P(A ∩ B) / P(B)</p>
+
+      <form onsubmit="calcularCondicional(event)">
+        <label>P(A ∩ B):</label>
+        <input type="number" id="pab" step="0.01" required>
+        <label>P(B):</label>
+        <input type="number" id="pb" step="0.01" required>
+        <button type="submit">Calcular</button>
+      </form>
+
+      <div id="resultado-condicional"></div>
+      <canvas id="graficoCondicional"></canvas>
+    </section>
+
+    <!-- Compuesta -->
+    <section id="compuesta">
+      <h2>Probabilidad Compuesta</h2>
+      <p><strong>Fórmula:</strong> P(A ∩ B) = P(A) × P(B)</p>
+
+      <form onsubmit="calcularCompuesta(event)">
+        <label>P(A):</label>
+        <input type="number" id="pa" step="0.01" required>
+        <label>P(B):</label>
+        <input type="number" id="pb2" step="0.01" required>
+        <button type="submit">Calcular</button>
+      </form>
+
+      <div id="resultado-compuesta"></div>
+      <canvas id="graficoCompuesta"></canvas>
+    </section>
+
+    <!-- Bayes -->
+    <section id="bayes">
+      <h2>Teorema de Bayes</h2>
+      <p><strong>Fórmula:</strong> P(A|B) = [P(B|A) × P(A)] / P(B)</p>
+
+      <form onsubmit="calcularBayes(event)">
+        <label>P(B|A):</label>
+        <input type="number" id="pba" step="0.01" required>
+        <label>P(A):</label>
+        <input type="number" id="pa2" step="0.01" required>
+        <label>P(B):</label>
+        <input type="number" id="pb3" step="0.01" required>
+        <button type="submit">Calcular</button>
+      </form>
+
+      <div id="resultado-bayes"></div>
+      <canvas id="graficoBayes"></canvas>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
