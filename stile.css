@@ -82,3 +82,108 @@ button:hover {
   margin-top: 15px;
   font-weight: bold;
 }
+
+.probabilidad {
+  background: #f4f4f9;
+  padding: 20px;
+  margin: 20px auto;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.probabilidad h2 {
+  color: #2a4d69;
+}
+
+.probabilidad form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.probabilidad input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.probabilidad button {
+  background: #4a90e2;
+  color: white;
+  border: none;
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Estilos para el botón de modo oscuro */
+/* Estilo del botón */
+.dark-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  background-color: transparent;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.dark-toggle:hover {
+  transform: scale(1.2);
+}
+
+/* 🔆 Estilos base */
+body {
+  background-color: #ffffff;
+  color: #000000;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 🌙 Modo oscuro */
+body.dark-mode {
+  background-color: #121212;
+  color: #f1f1f1;
+}
+
+/* 🔒 Evita que las tarjetas o cajas se oscurezcan */
+body.dark-mode .card,
+body.dark-mode .form-container,
+body.dark-mode .probabilidad-box {
+  background-color: #ffffff;
+  color: #000000;
+}
+/* evita que los textos dentro de las cajas se oscurezcan */
+body.dark-mode .card p,
+body.dark-mode .form-container p,
+body.dark-mode .probabilidad-box p {
+  color: #000000;
+}
+/* al momento de oscurecer si los textos dentro de las cajas se ven oscuros, los ponemos claros */
+body.dark-mode .card p,
+body.dark-mode .form-container p,
+body.dark-mode .probabilidad-box p {
+    color: #0a0ae2;
+    }
+
+
+/* 🌗 Botón de modo oscuro */
+.dark-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  background-color: transparent;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  z-index: 1000;
+}
+
+.dark-toggle:hover {
+  transform: scale(1.2);
+}
+
+

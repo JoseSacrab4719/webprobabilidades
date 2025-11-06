@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="stile.css">
   <!-- ✅ Agregar Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
   <header>
@@ -16,8 +17,18 @@
       <button onclick="mostrarSeccion('condicional')">Condicional</button>
       <button onclick="mostrarSeccion('compuesta')">Compuesta</button>
       <button onclick="mostrarSeccion('bayes')">Bayes</button>
+      <button onclick="mostrarSeccion('poisson')">Poisson</button>
+      <button onclick="mostrarSeccion('binomialNegativa')">Binomial Negativa</button>
+      <button onclick="mostrarSeccion('exponencial')">Exponencial</button>
     </nav>
+    <header>
+  <p>Selecciona una distribución y calcula los valores fácilmente 🎲</p>
+</header>
   </header>
+  <button id="toggle-dark" class="dark-toggle">
+  🌙
+</button>
+
 
   <main>
     <!-- Probabilidad Simple -->
@@ -90,7 +101,62 @@
       <canvas id="graficoBayes"></canvas>
     </section>
   </main>
+  <!-- Distribución de Poisson -->
+<section id="poisson" class="probabilidad">
+  <h2>Distribución de Poisson</h2>
+  <p>
+    Modela el número de eventos que ocurren en un intervalo de tiempo o espacio fijo.
+    <br>
+    <b>Fórmula:</b> P(X = k) = (λ<sup>k</sup> e<sup>-λ</sup>) / k!
+  </p>
+  <form onsubmit="calcularPoisson(event)">
+    <label>λ (media de eventos):</label>
+    <input type="number" id="lambda_poisson" step="0.01" required>
+    <label>k (número de eventos):</label>
+    <input type="number" id="k_poisson" required>
+    <button type="submit">Calcular</button>
+  </form>
+  <p id="resultado_poisson"></p>
+</section>
 
-  <script src="script.js"></script>
+<!-- Distribución Binomial Negativa -->
+<section id="binomialNegativa" class="probabilidad">
+  <h2>Distribución Binomial Negativa</h2>
+  <p>
+    Modela el número de fracasos antes de alcanzar un número fijo de éxitos.
+    <br>
+    <b>Fórmula:</b> P(X = x) = C(x + r - 1, x) * p<sup>r</sup> * (1 - p)<sup>x</sup>
+  </p>
+  <form onsubmit="calcularBinomialNegativa(event)">
+    <label>r (número de éxitos):</label>
+    <input type="number" id="r_bn" required>
+    <label>p (probabilidad de éxito):</label>
+    <input type="number" id="p_bn" step="0.01" required>
+    <label>x (número de fracasos):</label>
+    <input type="number" id="x_bn" required>
+    <button type="submit">Calcular</button>
+  </form>
+  <p id="resultado_bn"></p>
+</section>
+
+<!-- Distribución Exponencial -->
+<section id="exponencial" class="probabilidad">
+  <h2>Distribución Exponencial</h2>
+  <p>
+    Describe el tiempo entre eventos en un proceso de Poisson.
+    <br>
+    <b>Fórmula:</b> f(x; λ) = λ e<sup>-λx</sup>
+  </p>
+  <form onsubmit="calcularExponencial(event)">
+    <label>λ (tasa media):</label>
+    <input type="number" id="lambda_exp" step="0.01" required>
+    <label>x (tiempo):</label>
+    <input type="number" id="x_exp" step="0.01" required>
+    <button type="submit">Calcular</button>
+  </form>
+  <p id="resultado_exp"></p>
+</section>
+
+<script src="script.js"></script>
 </body>
 </html>

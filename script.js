@@ -126,3 +126,86 @@ function calcularBayes(e) {
     options: { scales: { y: { beginAtZero: true, max: 1 } } }
   });
 }
+
+// -----------------------------
+// Distribución de Poisson
+function calcularPoisson(e) {
+  e.preventDefault();
+  const λ = parseFloat(document.getElementById("lambda_poisson").value);
+  const k = parseInt(document.getElementById("k_poisson").value);
+
+  const factorial = n => (n <= 1 ? 1 : n * factorial(n - 1));
+  const resultado = (Math.pow(λ, k) * Math.exp(-λ)) / factorial(k);
+
+  document.getElementById("resultado_poisson").textContent =
+    `P(X=${k}) = ${resultado.toFixed(5)}`;
+}
+
+// Distribución Binomial Negativa
+function calcularBinomialNegativa(e) {
+  e.preventDefault();
+  const r = parseInt(document.getElementById("r_bn").value);
+  const p = parseFloat(document.getElementById("p_bn").value);
+  const x = parseInt(document.getElementById("x_bn").value);
+
+  const combinacion = (n, k) => factorial(n) / (factorial(k) * factorial(n - k));
+  const factorial = n => (n <= 1 ? 1 : n * factorial(n - 1));
+
+  const resultado = combinacion(x + r - 1, x) * Math.pow(p, r) * Math.pow(1 - p, x);
+
+  document.getElementById("resultado_bn").textContent =
+    `P(X=${x}) = ${resultado.toFixed(5)}`;
+}
+
+// Distribución Exponencial
+function calcularExponencial(e) {
+  e.preventDefault();
+  const λ = parseFloat(document.getElementById("lambda_exp").value);
+  const x = parseFloat(document.getElementById("x_exp").value);
+
+  const resultado = λ * Math.exp(-λ * x);
+
+  document.getElementById("resultado_exp").textContent =
+    `f(x=${x}) = ${resultado.toFixed(5)}`;
+}
+// ✨ Animación al hacer scroll
+const secciones = document.querySelectorAll('.probabilidad');
+
+window.addEventListener('scroll', () => {
+  const triggerBottom = window.innerHeight * 0.85;
+
+  secciones.forEach(sec => {
+    const boxTop = sec.getBoundingClientRect().top;
+
+    if (boxTop < triggerBottom) {
+      sec.style.opacity = '1';
+      sec.style.transform = 'translateY(0)';
+    } else {
+      sec.style.opacity = '0';
+      sec.style.transform = 'translateY(30px)';
+    }
+  });
+});
+// Inicializar animación al cargar la página
+window.addEventListener('load', () => {
+  secciones.forEach(sec => {
+    sec.style.opacity = '0';
+    sec.style.transform = 'translateY(30px)';
+  });
+  //modo oscuro del boton no quiero que afecte los textos de las formulas
+  
+  const toggle = document.getElementById('toggle-dark');
+  const body = document.body;
+
+  if (localStorage.getItem('dark-mode') === 'true') {
+    body.classList.add('dark-mode');
+    toggle.textContent = '☀️';
+  }
+
+  toggle.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+    const darkModeActive = body.classList.contains('dark-mode');
+    toggle.textContent = darkModeActive ? '☀️' : '🌙';
+    localStorage.setItem('dark-mode', darkModeActive);
+  });
+});
