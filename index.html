@@ -1,178 +1,291 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-MX">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calculadora Avanzada de Probabilidades 🎲</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Curso Interactivo de Probabilidades</title>
+  <link rel="stylesheet" href="style.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <header>
-    <h1>📊 Calculadora de Probabilidades</h1>
-    <p>Aprende estadística de forma interactiva - Distribuye probabilidades fácilmente 🎲</p>
+    <h1>Curso Interactivo: Probabilidades</h1>
+    <p>Selecciona un tema principal y despliega los subtemas.</p>
     <nav>
-      <button onclick="mostrarSeccion('simple')">Simple</button>
-      <button onclick="mostrarSeccion('condicional')">Condicional</button>
-      <button onclick="mostrarSeccion('compuesta')">Compuesta</button>
-      <button onclick="mostrarSeccion('bayes')">Bayes</button>
-      <button onclick="mostrarSeccion('poisson')">Poisson</button>
-      <button onclick="mostrarSeccion('binomialNegativa')">Binomial Negativa</button>
-      <button onclick="mostrarSeccion('exponencial')">Exponencial</button>
+      <button class="main-btn" data-target="conteo">1. Técnicas de conteo</button>
+      <button class="main-btn" data-target="basicos">2. Conceptos básicos</button>
+      <button class="main-btn" data-target="condicionales">3. Probabilidad condicional</button>
+      <button class="main-btn" data-target="bayes">4. Teorema de Bayes</button>
+      <button class="main-btn" data-target="discretas">5. Distribuciones discretas</button>
+      <button class="main-btn" data-target="continuas">6. Distribuciones continuas</button>
     </nav>
   </header>
 
-  <button id="toggle-dark" class="dark-toggle" title="Cambiar tema">🌙</button>
+  <button id="toggle-dark" title="Cambiar tema">🌓</button>
 
   <main>
-    <!-- ===== PROBABILIDAD SIMPLE ===== -->
-    <section id="simple" class="probabilidad activo">
-      <h2>📍 Probabilidad Simple</h2>
-      <p><strong>Concepto:</strong> Es la razón entre casos favorables y casos totales.</p>
-      <p><strong>Fórmula:</strong> P(A) = Casos favorables / Casos totales</p>
+    <!-- 1. Técnicas de conteo -->
+    <section id="conteo" class="panel">
+      <h2>1. Técnicas de conteo</h2>
+      <div class="accordion">
+        <button class="acc-btn">a) Permutaciones (n!)</button>
+        <div class="acc-body">
+          <form onsubmit="calcularPermutacionSimple(event)">
+            <label>n: <input id="n_perm" type="number" min="0" required></label>
+            <button type="submit">Calcular n!</button>
+          </form>
+          <div id="res_perm"></div>
+        </div>
 
-      <form onsubmit="calcularSimple(event)">
-        <label for="favorables">Casos Favorables:</label>
-        <input type="number" id="favorables" step="1" min="0" required placeholder="Ej: 3">
-        
-        <label for="totales">Casos Totales:</label>
-        <input type="number" id="totales" step="1" min="1" required placeholder="Ej: 6">
-        
-        <button type="submit">Calcular Probabilidad</button>
-      </form>
+        <button class="acc-btn">b) Permutaciones con r (P(n,r) = n!/(n-r)!)</button>
+        <div class="acc-body">
+          <form onsubmit="calcularPermutacionR(event)">
+            <label>n: <input id="n_perm_r" type="number" min="0" required></label>
+            <label>r: <input id="r_perm_r" type="number" min="0" required></label>
+            <button type="submit">Calcular P(n,r)</button>
+          </form>
+          <div id="res_perm_r"></div>
+        </div>
 
-      <div id="resultado-simple"></div>
-      <canvas id="graficoSimple"></canvas>
+        <button class="acc-btn">c) Combinaciones (C(n,k))</button>
+        <div class="acc-body">
+          <form onsubmit="calcularCombinacionSimple(event)">
+            <label>n: <input id="n_comb" type="number" min="0" required></label>
+            <label>k: <input id="k_comb" type="number" min="0" required></label>
+            <button type="submit">Calcular C(n,k)</button>
+          </form>
+          <div id="res_comb"></div>
+        </div>
+      </div>
     </section>
 
-    <!-- ===== PROBABILIDAD CONDICIONAL ===== -->
-    <section id="condicional" class="probabilidad">
-      <h2>🔀 Probabilidad Condicional</h2>
-      <p><strong>Concepto:</strong> Probabilidad de un evento dado que otro evento ya ocurrió.</p>
-      <p><strong>Fórmula:</strong> P(A|B) = P(A ∩ B) / P(B)</p>
+    <!-- 2. Conceptos básicos -->
+    <section id="basicos" class="panel">
+      <h2>2. Conceptos básicos de probabilidad</h2>
+      <div class="accordion">
+        <button class="acc-btn">a) Concepto / Casos favorables/posibles</button>
+        <div class="acc-body">
+          <form onsubmit="calcularSimple(event)">
+            <label>Casos favorables: <input id="favorables" type="number" min="0" required></label>
+            <label>Casos posibles: <input id="totales" type="number" min="1" required></label>
+            <button type="submit">Calcular P(A)</button>
+          </form>
+          <div id="res_simple"></div>
+          <canvas id="chart_simple"></canvas>
+        </div>
 
-      <form onsubmit="calcularCondicional(event)">
-        <label for="pab">P(A ∩ B) - Probabilidad conjunta (0-1):</label>
-        <input type="number" id="pab" step="0.01" min="0" max="1" required placeholder="Ej: 0.2">
-        
-        <label for="pb">P(B) - Probabilidad de B (0-1):</label>
-        <input type="number" id="pb" step="0.01" min="0" max="1" required placeholder="Ej: 0.5">
-        
-        <button type="submit">Calcular P(A|B)</button>
-      </form>
+        <button class="acc-btn">b) Regla de la suma</button>
+        <div class="acc-body">
+          <form onsubmit="calcularSuma(event)">
+            <label>P(A): <input id="pA_suma" type="number" step="0.01" min="0" max="1" required></label>
+            <label>P(B): <input id="pB_suma" type="number" step="0.01" min="0" max="1" required></label>
+            <button type="submit">Calcular P(A o B) si excluyentes</button>
+          </form>
+          <div id="res_suma"></div>
+        </div>
 
-      <div id="resultado-condicional"></div>
-      <canvas id="graficoCondicional"></canvas>
+        <button class="acc-btn">c) Eventos excluyentes / d) no excluyentes (inclusión-exclusión)</button>
+        <div class="acc-body">
+          <form onsubmit="calcularUnion(event)">
+            <label>P(A): <input id="pA_union" type="number" step="0.01" min="0" max="1" required></label>
+            <label>P(B): <input id="pB_union" type="number" step="0.01" min="0" max="1" required></label>
+            <label>P(A∩B): <input id="pAB_union" type="number" step="0.01" min="0" max="1" required></label>
+            <button type="submit">Calcular P(A ∪ B)</button>
+          </form>
+          <div id="res_union"></div>
+          <canvas id="chart_union"></canvas>
+        </div>
+
+        <button class="acc-btn">e) Regla del producto</button>
+        <div class="acc-body">
+          <form onsubmit="calcularProducto(event)">
+            <label>Opciones por etapa (<coma-espacio></coma-espacio> o número): <input id="opts_prod" type="text" required placeholder="ej: 3,4 o 5"></label>
+            <label>Etapas m: <input id="m_prod" type="number" min="1" required></label>
+            <button type="submit">Calcular</button>
+          </form>
+          <div id="res_prod"></div>
+        </div>
+
+        <button class="acc-btn">f) Independientes / g) Dependientes</button>
+        <div class="acc-body">
+          <form onsubmit="verificarIndependencia(event)">
+            <label>P(A): <input id="pA_ind" type="number" step="0.01" min="0" max="1" required></label>
+            <label>P(B): <input id="pB_ind" type="number" step="0.01" min="0" max="1" required></label>
+            <label>P(A∩B): <input id="pAB_ind" type="number" step="0.01" min="0" max="1" required></label>
+            <button type="submit">Verificar independencia</button>
+          </form>
+          <div id="res_ind"></div>
+        </div>
+
+        <button class="acc-btn">h) Complemento de un evento</button>
+        <div class="acc-body">
+          <form onsubmit="calcularComplemento(event)">
+            <label>P(A): <input id="p_compl" type="number" step="0.01" min="0" max="1" required></label>
+            <button type="submit">Calcular P(A^c)</button>
+          </form>
+          <div id="res_compl"></div>
+        </div>
+      </div>
     </section>
 
-    <!-- ===== PROBABILIDAD COMPUESTA ===== -->
-    <section id="compuesta" class="probabilidad">
-      <h2>✖️ Probabilidad Compuesta</h2>
-      <p><strong>Concepto:</strong> Probabilidad de que dos eventos independientes ocurran simultáneamente.</p>
-      <p><strong>Fórmula:</strong> P(A ∩ B) = P(A) × P(B)</p>
+    <!-- 3. Probabilidad condicional y dependencias -->
+    <section id="condicionales" class="panel">
+      <h2>3. Probabilidad condicional y dependencias</h2>
+      <div class="accordion">
+        <button class="acc-btn">a) Probabilidad condicional (P(A|B))</button>
+        <div class="acc-body">
+          <form onsubmit="calcularCondicional(event)">
+            <label>P(A∩B): <input id="pab" type="number" step="0.01" min="0" max="1" required></label>
+            <label>P(B): <input id="pb" type="number" step="0.01" min="0" max="1" required></label>
+            <button type="submit">Calcular P(A|B)</button>
+          </form>
+          <div id="res_cond"></div>
+          <canvas id="chart_cond"></canvas>
+        </div>
 
-      <form onsubmit="calcularCompuesta(event)">
-        <label for="pa">P(A) - Probabilidad de A (0-1):</label>
-        <input type="number" id="pa" step="0.01" min="0" max="1" required placeholder="Ej: 0.4">
-        
-        <label for="pb2">P(B) - Probabilidad de B (0-1):</label>
-        <input type="number" id="pb2" step="0.01" min="0" max="1" required placeholder="Ej: 0.5">
-        
-        <button type="submit">Calcular P(A ∩ B)</button>
-      </form>
+        <button class="acc-btn">i) Aplicaciones con tablas / contextos reales</button>
+        <div class="acc-body">
+          <p>Introduce tabla 2×2: filas=A/B, columnas=evento B sí/no como counts</p>
+          <form onsubmit="calcularDesdeTabla(event)">
+            <label>A∩B (conteo): <input id="t_ab" type="number" min="0" required></label>
+            <label>A∩B̄: <input id="t_a_nb" type="number" min="0" required></label>
+            <label>Ā∩B: <input id="t_na_b" type="number" min="0" required></label>
+            <label>Ā∩B̄: <input id="t_na_nb" type="number" min="0" required></label>
+            <button type="submit">Calcular probabilidades y P(A|B)</button>
+          </form>
+          <div id="res_tabla"></div>
+          <canvas id="chart_tabla"></canvas>
+        </div>
 
-      <div id="resultado-compuesta"></div>
-      <canvas id="graficoCompuesta"></canvas>
+        <button class="acc-btn">ii) Dependientes vs independientes (explicación)</button>
+        <div class="acc-body">
+          <p>Si P(A∩B) = P(A)P(B) son independientes; si no, dependientes.</p>
+        </div>
+      </div>
     </section>
 
-    <!-- ===== TEOREMA DE BAYES ===== -->
-    <section id="bayes" class="probabilidad">
-      <h2>🔄 Teorema de Bayes</h2>
-      <p><strong>Concepto:</strong> Actualiza la probabilidad de un evento basado en nueva información.</p>
-      <p><strong>Fórmula:</strong> P(A|B) = [P(B|A) × P(A)] / P(B)</p>
+    <!-- 4. Teorema de Bayes -->
+    <section id="bayes" class="panel">
+      <h2>4. Teorema de Bayes</h2>
+      <div class="accordion">
+        <button class="acc-btn">a) Concepto e interpretación</button>
+        <div class="acc-body">
+          <p>Teorema: P(A|B) = P(B|A)P(A) / P(B). Sirve para actualizar creencias.</p>
+        </div>
 
-      <form onsubmit="calcularBayes(event)">
-        <label for="pba">P(B|A) - Probabilidad de B dado A (0-1):</label>
-        <input type="number" id="pba" step="0.01" min="0" max="1" required placeholder="Ej: 0.8">
-        
-        <label for="pa2">P(A) - Probabilidad previa de A (0-1):</label>
-        <input type="number" id="pa2" step="0.01" min="0" max="1" required placeholder="Ej: 0.3">
-        
-        <label for="pb3">P(B) - Probabilidad total de B (0-1):</label>
-        <input type="number" id="pb3" step="0.01" min="0" max="1" required placeholder="Ej: 0.4">
-        
-        <button type="submit">Calcular P(A|B)</button>
-      </form>
+        <button class="acc-btn">b) Identificación: previas, verdaderos/falsos positivos</button>
+        <div class="acc-body">
+          <form onsubmit="calcularBayes(event)">
+            <label>P(A) prior (ej. prevalencia): <input id="pa" type="number" step="0.01" min="0" max="1" required></label>
+            <label>P(B|A) sensibilidad: <input id="pba" type="number" step="0.01" min="0" max="1" required></label>
+            <label>P(B|Ā) tasa falsos positivos: <input id="pba_neg" type="number" step="0.01" min="0" max="1" required></label>
+            <button type="submit">Calcular P(A|B)</button>
+          </form>
+          <div id="res_bayes"></div>
+          <canvas id="chart_bayes"></canvas>
+        </div>
 
-      <div id="resultado-bayes"></div>
-      <canvas id="graficoBayes"></canvas>
+        <button class="acc-btn">c) Aplicaciones prácticas (diagnósticos)</button>
+        <div class="acc-body">
+          <p>Ejemplo integrado en la calculadora anterior (ingresa prevalencia, sensibilidad, falsos positivos).</p>
+        </div>
+      </div>
     </section>
 
-    <!-- ===== DISTRIBUCIÓN DE POISSON ===== -->
-    <section id="poisson" class="probabilidad">
-      <h2>🔔 Distribución de Poisson</h2>
-      <p><strong>Concepto:</strong> Modela el número de eventos que ocurren en un intervalo de tiempo fijo.</p>
-      <p><strong>Aplicaciones:</strong> Llamadas telefónicas por hora, accidentes por semana, etc.</p>
-      <p><strong>Fórmula:</strong> P(X = k) = (λ<sup>k</sup> × e<sup>-λ</sup>) / k!</p>
+    <!-- 5. Distribuciones discretas -->
+    <section id="discretas" class="panel">
+      <h2>5. Distribuciones discretas</h2>
+      <div class="accordion">
+        <button class="acc-btn">a) Binomial</button>
+        <div class="acc-body">
+          <form onsubmit="calcularBinomial(event)">
+            <label>n (ensayos): <input id="bin_n" type="number" min="1" required></label>
+            <label>p (éxito): <input id="bin_p" type="number" step="0.01" min="0" max="1" required></label>
+            <label>k (éxitos): <input id="bin_k" type="number" min="0" required></label>
+            <select id="bin_tipo">
+              <option value="exacto">P(X = k)</option>
+              <option value="almenos">P(X ≥ k)</option>
+              <option value="a_lomax">P(X ≤ k)</option>
+            </select>
+            <button type="submit">Calcular</button>
+          </form>
+          <div id="res_binomial"></div>
+          <canvas id="chart_binomial"></canvas>
+        </div>
 
-      <form onsubmit="calcularPoisson(event)">
-        <label for="lambda_poisson">λ (Lambda - Media de eventos):</label>
-        <input type="number" id="lambda_poisson" step="0.1" min="0.1" required placeholder="Ej: 3.5">
-        
-        <label for="k_poisson">k (Número de eventos a calcular):</label>
-        <input type="number" id="k_poisson" step="1" min="0" required placeholder="Ej: 5">
-        
-        <button type="submit">Calcular Probabilidad</button>
-      </form>
+        <button class="acc-btn">b) Binomial negativa</button>
+        <div class="acc-body">
+          <form onsubmit="calcularBinomialNegativa(event)">
+            <label>r (éxitos deseados): <input id="bn_r" type="number" min="1" required></label>
+            <label>p (éxito): <input id="bn_p" type="number" step="0.01" min="0" max="1" required></label>
+            <label>x (fracasos): <input id="bn_x" type="number" min="0" required></label>
+            <button type="submit">Calcular P(X = x)</button>
+          </form>
+          <div id="res_bn"></div>
+          <canvas id="chart_bn"></canvas>
+        </div>
 
-      <p id="resultado_poisson"></p>
-      <canvas id="graficoPoisson"></canvas>
+        <button class="acc-btn">c) Poisson</button>
+        <div class="acc-body">
+          <form onsubmit="calcularPoisson(event)">
+            <label>λ (media): <input id="po_lambda" type="number" step="0.1" min="0.01" required></label>
+            <label>k (valor): <input id="po_k" type="number" min="0" required></label>
+            <select id="po_tipo">
+              <option value="exacto">P(X = k)</option>
+              <option value="menos">P(X ≤ k)</option>
+              <option value="mas">P(X ≥ k)</option>
+            </select>
+            <button type="submit">Calcular</button>
+          </form>
+          <div id="res_poisson"></div>
+          <canvas id="chart_poisson"></canvas>
+        </div>
+      </div>
     </section>
 
-    <!-- ===== DISTRIBUCIÓN BINOMIAL NEGATIVA ===== -->
-    <section id="binomialNegativa" class="probabilidad">
-      <h2>⚠️ Distribución Binomial Negativa</h2>
-      <p><strong>Concepto:</strong> Número de fracasos antes de lograr r éxitos.</p>
-      <p><strong>Aplicaciones:</strong> Control de calidad, pruebas repetidas, etc.</p>
-      <p><strong>Fórmula:</strong> P(X = x) = C(x + r - 1, x) × p<sup>r</sup> × (1 - p)<sup>x</sup></p>
+    <!-- 6. Distribuciones continuas -->
+    <section id="continuas" class="panel">
+      <h2>6. Distribuciones continuas</h2>
+      <div class="accordion">
+        <button class="acc-btn">a) Exponencial</button>
+        <div class="acc-body">
+          <form onsubmit="calcularExponencial(event)">
+            <label>λ: <input id="exp_lambda" type="number" step="0.01" min="0.01" required></label>
+            <label>Tipo: <select id="exp_tipo">
+              <option value="pdf">Densidad en x</option>
+              <option value="menor">P(X &lt; x)</option>
+              <option value="mayor">P(X &gt; x)</option>
+              <option value="entre">P(a &lt; X &lt; b)</option>
+            </select></label>
+            <label>x: <input id="exp_x" type="number" step="0.01" min="0" required></label>
+            <label id="label_exp_b" style="display:none">b: <input id="exp_b" type="number" step="0.01" min="0"></label>
+            <button type="submit">Calcular</button>
+          </form>
+          <div id="res_exp"></div>
+          <canvas id="chart_exp"></canvas>
+        </div>
 
-      <form onsubmit="calcularBinomialNegativa(event)">
-        <label for="r_bn">r (Número de éxitos deseados):</label>
-        <input type="number" id="r_bn" step="1" min="1" required placeholder="Ej: 3">
-        
-        <label for="p_bn">p (Probabilidad de éxito en cada prueba, 0-1):</label>
-        <input type="number" id="p_bn" step="0.01" min="0.01" max="0.99" required placeholder="Ej: 0.5">
-        
-        <label for="x_bn">x (Número de fracasos):</label>
-        <input type="number" id="x_bn" step="1" min="0" required placeholder="Ej: 2">
-        
-        <button type="submit">Calcular Probabilidad</button>
-      </form>
-
-      <p id="resultado_bn"></p>
-      <canvas id="graficoBinomialNegativa"></canvas>
-    </section>
-
-    <!-- ===== DISTRIBUCIÓN EXPONENCIAL ===== -->
-    <section id="exponencial" class="probabilidad">
-      <h2>⏱️ Distribución Exponencial</h2>
-      <p><strong>Concepto:</strong> Describe el tiempo entre eventos en un proceso de Poisson.</p>
-      <p><strong>Aplicaciones:</strong> Tiempo hasta falla de equipos, tiempo de espera, etc.</p>
-      <p><strong>Fórmula:</strong> f(x; λ) = λ × e<sup>-λx</sup></p>
-
-      <form onsubmit="calcularExponencial(event)">
-        <label for="lambda_exp">λ (Lambda - Tasa media):</label>
-        <input type="number" id="lambda_exp" step="0.01" min="0.01" required placeholder="Ej: 0.5">
-        
-        <label for="x_exp">x (Tiempo o distancia):</label>
-        <input type="number" id="x_exp" step="0.1" min="0" required placeholder="Ej: 2">
-        
-        <button type="submit">Calcular Densidad</button>
-      </form>
-
-      <p id="resultado_exp"></p>
-      <canvas id="graficoExponencial"></canvas>
+        <button class="acc-btn">b) Normal</button>
+        <div class="acc-body">
+          <form onsubmit="calcularNormal(event)">
+            <label>μ: <input id="norm_mu" type="number" step="0.01" required></label>
+            <label>σ: <input id="norm_sigma" type="number" step="0.01" min="0.01" required></label>
+            <label>Tipo: <select id="norm_tipo">
+              <option value="lt">P(X &lt; x)</option>
+              <option value="gt">P(X &gt; x)</option>
+              <option value="entre">P(a &lt; X &lt; b)</option>
+              <option value="valor">Calcular x dado probabilidad</option>
+            </select></label>
+            <label id="label_norm_x">x: <input id="norm_x" type="number" step="0.01"></label>
+            <label id="label_norm_a" style="display:none">a: <input id="norm_a" type="number" step="0.01"></label>
+            <label id="label_norm_b" style="display:none">b: <input id="norm_b" type="number" step="0.01"></label>
+            <label id="label_norm_p" style="display:none">Prob (0-1): <input id="norm_p" type="number" step="0.0001" min="0" max="1"></label>
+            <button type="submit">Calcular</button>
+          </form>
+          <div id="res_norm"></div>
+          <canvas id="chart_norm"></canvas>
+        </div>
+      </div>
     </section>
   </main>
 
