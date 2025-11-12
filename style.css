@@ -1,189 +1,336 @@
-body {
-  font-family: Arial, sans-serif;
-  background: #f7f9fc;
-  color: #333;
+* {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+:root {
+  --color-primario: #004aad;
+  --color-secundario: #00b894;
+  --color-error: #ff4a4a;
+  --color-warning: #f39c12;
+  --color-fondo: #f7f9fc;
+  --color-texto: #333;
+  --color-blanco: #ffffff;
+  --sombra: 0 2px 10px rgba(0, 0, 0, 0.1);
+  --transicion: all 0.3s ease;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--color-fondo);
+  color: var(--color-texto);
+  line-height: 1.6;
+}
+
+/* MODO OSCURO */
+body.dark-mode {
+  --color-fondo: #1a1a2e;
+  --color-texto: #e0e0e0;
+  --color-blanco: #16213e;
+}
+
+/* HEADER */
 header {
-  background: #004aad;
-  color: white;
-  padding: 20px;
+  background: linear-gradient(135deg, var(--color-primario), #003580);
+  color: var(--color-blanco);
+  padding: 30px 20px;
   text-align: center;
+  box-shadow: var(--sombra);
 }
 
+header h1 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+  animation: slideDown 0.6s ease;
+}
+
+header p {
+  font-size: 1.1em;
+  opacity: 0.9;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* NAVEGACIÓN */
 nav {
-  margin-top: 10px;
+  margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
 }
 
 nav button {
-  background: white;
-  color: #004aad;
+  background: var(--color-blanco);
+  color: var(--color-primario);
   border: none;
-  padding: 10px 15px;
-  margin: 5px;
-  border-radius: 5px;
+  padding: 10px 20px;
+  border-radius: 25px;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 600;
+  transition: var(--transicion);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 nav button:hover {
-  background: #003580;
-  color: white;
+  background: var(--color-primario);
+  color: var(--color-blanco);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
+/* MAIN */
 main {
-  max-width: 700px;
+  max-width: 900px;
   margin: 40px auto;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  padding: 30px;
+  background: var(--color-blanco);
+  border-radius: 15px;
+  box-shadow: var(--sombra);
+  padding: 40px;
 }
 
+/* SECCIONES */
 section {
   display: none;
+  animation: fadeIn 0.5s ease;
 }
 
 section.activo {
   display: block;
 }
 
+section.visible {
+  animation: slideUp 0.6s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+section h2 {
+  color: var(--color-primario);
+  margin-bottom: 15px;
+  font-size: 1.8em;
+  border-bottom: 3px solid var(--color-primario);
+  padding-bottom: 10px;
+}
+
+section p {
+  margin-bottom: 15px;
+  line-height: 1.8;
+  font-size: 1em;
+}
+
+/* FORMULARIOS */
 form {
-  margin-top: 20px;
+  background: #f5f5f5;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px 0;
+}
+
+body.dark-mode form {
+  background: #0f3460;
 }
 
 label {
   display: block;
-  margin-top: 10px;
+  margin-top: 15px;
+  font-weight: 600;
+  color: var(--color-primario);
 }
 
-input {
+input[type="number"] {
   width: 100%;
-  padding: 8px;
-  margin-top: 5px;
+  padding: 12px;
+  margin-top: 8px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 1em;
+  transition: var(--transicion);
+  background: var(--color-blanco);
+  color: var(--color-texto);
 }
 
-button {
-  background: #004aad;
-  color: white;
+input[type="number"]:focus {
+  outline: none;
+  border-color: var(--color-primario);
+  box-shadow: 0 0 8px rgba(0, 74, 173, 0.2);
+}
+
+/* BOTONES */
+button[type="submit"] {
+  background: linear-gradient(135deg, var(--color-primario), #003580);
+  color: var(--color-blanco);
   border: none;
-  padding: 10px 20px;
-  margin-top: 15px;
-  border-radius: 5px;
+  padding: 12px 30px;
+  margin-top: 20px;
+  border-radius: 8px;
   cursor: pointer;
+  font-weight: 600;
+  font-size: 1.05em;
+  transition: var(--transicion);
+  width: 100%;
 }
 
-button:hover {
-  background: #003580;
+button[type="submit"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 74, 173, 0.3);
 }
 
-#resultado-simple, #resultado-condicional, #resultado-compuesta, #resultado-bayes {
-  margin-top: 15px;
-  font-weight: bold;
+button[type="submit"]:active {
+  transform: translateY(0);
 }
 
-.probabilidad {
-  background: #f4f4f9;
+/* RESULTADOS */
+.resultado-box {
+  background: linear-gradient(135deg, rgba(0, 74, 173, 0.1), rgba(0, 184, 148, 0.1));
+  border-left: 5px solid var(--color-primario);
   padding: 20px;
-  margin: 20px auto;
-  border-radius: 12px;
-  width: 90%;
-  max-width: 600px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  margin: 20px 0;
 }
 
-.probabilidad h2 {
-  color: #2a4d69;
+.resultado-valor {
+  font-size: 1.4em;
+  color: var(--color-primario);
+  margin-top: 15px;
 }
 
-.probabilidad form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.resultado-valor span {
+  font-weight: 700;
+  color: var(--color-error);
+  font-size: 1.2em;
 }
 
-.probabilidad input {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+/* GRÁFICOS */
+canvas {
+  margin-top: 30px;
+  max-height: 400px;
 }
 
-.probabilidad button {
-  background: #4a90e2;
+/* MENSAJES DE ERROR */
+.error-message {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: var(--color-error);
   color: white;
-  border: none;
-  padding: 8px;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-/* Estilos para el botón de modo oscuro */
-/* Estilo del botón */
-.dark-toggle {
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-  background-color: transparent;
-  border: none;
-  font-size: 1.8rem;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
-.dark-toggle:hover {
-  transform: scale(1.2);
-}
-
-/* 🔆 Estilos base */
-body {
-  background-color: #ffffff;
-  color: #000000;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-/* 🌙 Modo oscuro */
-body.dark-mode {
-  background-color: #121212;
-  color: #f1f1f1;
-}
-
-/* 🔒 Evita que las tarjetas o cajas se oscurezcan */
-body.dark-mode .card,
-body.dark-mode .form-container,
-body.dark-mode .probabilidad-box {
-  background-color: #ffffff;
-  color: #000000;
-}
-/* evita que los textos dentro de las cajas se oscurezcan */
-body.dark-mode .card p,
-body.dark-mode .form-container p,
-body.dark-mode .probabilidad-box p {
-  color: #000000;
-}
-/* al momento de oscurecer si los textos dentro de las cajas se ven oscuros, los ponemos claros */
-body.dark-mode .card p,
-body.dark-mode .form-container p,
-body.dark-mode .probabilidad-box p {
-    color: #0a0ae2;
-    }
-
-
-/* 🌗 Botón de modo oscuro */
-.dark-toggle {
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-  background-color: transparent;
-  border: none;
-  font-size: 1.8rem;
-  cursor: pointer;
-  transition: transform 0.3s ease;
+  padding: 15px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  animation: slideInRight 0.4s ease;
   z-index: 1000;
 }
 
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* TOGGLE DARK MODE */
+.dark-toggle {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: var(--color-primario);
+  color: white;
+  border: none;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  font-size: 1.8em;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: var(--transicion);
+  z-index: 999;
+}
+
 .dark-toggle:hover {
-  transform: scale(1.2);
+  transform: scale(1.1) rotate(20deg);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 1.8em;
+  }
+
+  main {
+    margin: 20px;
+    padding: 20px;
+  }
+
+  nav {
+    flex-direction: column;
+  }
+
+  nav button {
+    width: 100%;
+  }
+
+  section h2 {
+    font-size: 1.4em;
+  }
+
+  .dark-toggle {
+    width: 50px;
+    height: 50px;
+    font-size: 1.4em;
+    bottom: 20px;
+    right: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  header {
+    padding: 20px 10px;
+  }
+
+  header h1 {
+    font-size: 1.5em;
+  }
+
+  main {
+    padding: 15px;
+  }
+
+  input[type="number"] {
+    font-size: 16px;
+  }
 }
 
 
