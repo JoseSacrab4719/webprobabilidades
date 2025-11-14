@@ -27,6 +27,29 @@
   <button id="toggle-dark" title="Cambiar tema">🌓</button>
 
   <main>
+    <!--datos del creador de la pagina web-->
+    <section id="datos del estudiante" class="panel">
+      <h2>Información del creador</h2>
+      <p>Nombre: BRAYAN JOSE AUGUSTO SACRAB CHOC</p>
+      <p>CARNE: 0902-24-10668</p>
+      <p>Curso: Probabilidades y Estadística</p>
+      <p>Institución: Universidad Mariano Galvez De Guatemala</p>
+      <p>Interpretación del tema: La probabilidad es una herramienta fundamental para entender y 
+        modelar la incertidumbre en diversos contextos, desde la vida cotidiana hasta aplicaciones 
+        científicas y tecnológicas. Este curso interactivo busca facilitar el aprendizaje de los conceptos clave 
+        y su aplicación práctica.</p>
+        
+        <h3>link del video</h3>
+         <a href="https://drive.google.com/file/d/1P6G1kUbAWJ498EmjDxeAlaCKvBFjVkHu/view?usp=sharing">https://drive.google.com/file/d/1P6G1kUbAWJ498EmjDxeAlaCKvBFjVkHu/view?usp=sharing</a>
+     
+        <h4>plataformas de creacion del la pagina</h4>
+        <p>HTML, CSS, JavaScript, Chart.js</p>
+        <p>referencias bibliograficas:</p>
+        <p>1. Ross, S. M. (2014). <em>Introduction to Probability Models</em>. Academic Press.</p>
+        <p>2. Grimmett, G., & Stirzaker, D. (2001). <em>Probability and Random Processes</em>. Oxford University Press.</p>
+        <p>3. material de clase y apuntes proporcionados por el ingeniero, catedratico.</p>
+
+    </section>
     <!-- 1. Técnicas de conteo -->
     <section id="conteo" class="panel">
       <h2>1. Técnicas de conteo</h2>
@@ -72,9 +95,12 @@
             <label>Casos favorables: <input id="favorables" type="number" min="0" required></label>
             <label>Casos posibles: <input id="totales" type="number" min="1" required></label>
             <button type="submit">Calcular P(A)</button>
+            <button type="button" id="btn_reset_simple">Reiniciar cálculo</button>
+
           </form>
           <div id="res_simple"></div>
           <canvas id="chart_simple"></canvas>
+          <button id="btn_reset_simple">Reiniciar gráfico</button>
         </div>
 
         <button class="acc-btn">b) Regla de la suma</button>
